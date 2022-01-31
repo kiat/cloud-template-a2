@@ -67,7 +67,7 @@ public class Utils {
 	
 		ByteBuffer byteBuffer = ByteBuffer.allocate(Const.PAGESIZE);
 
-		// counter for objects in each page. 
+		// counter for objects in each page.
 		int objectCounter = 0;
 		
 		for (int i = 0; i < dataItems.size(); i++) {
@@ -81,16 +81,18 @@ public class Utils {
 
 			// increase the size
 			sizeCounter = sizeCounter + 4 + bytesOfIt.length;
+			
 			objectCounter++;
 
 			// if we have enough objects for a page, then dump it to a page and get a new
 			// page.
 			if (sizeCounter > Const.PAGESIZE) {
-
-				byteBuffer.putInt(objectCounter);
+                //skip the last object because it cause a page overflow. 
+				//1. add the count of objects on this page. 
+				byteBuffer.putInt(objectCounter-1);
 				
 				// We add all object, and skip the last object because it cause a page overflow. 
-				for (int j = 0; j < objectsInBytesTemp.size() - 2 ; j++) {
+				for (int j = 0; j < objectsInBytesTemp.size() - 1 ; j++) {
 					
 					byteBuffer.putInt(objectsInBytesTemp.get(j).length);
 					byteBuffer.put(objectsInBytesTemp.get(j));
@@ -104,13 +106,14 @@ public class Utils {
 				byteBuffer = ByteBuffer.allocate(Const.PAGESIZE);
 				byte[] lastObjectBeforeFull = objectsInBytesTemp.get(objectsInBytesTemp.size() -1 );
 				
+				// get a fresh list 
 				objectsInBytesTemp = new ArrayList<byte[]>();
 				
 				objectsInBytesTemp.add(lastObjectBeforeFull);
 				
-				sizeCounter = 8; // 4 for the object numbers, and 4 for the length of the last object. 
-				sizeCounter = sizeCounter + lastObjectBeforeFull.length; 
-				objectCounter = 0;
+				sizeCounter = 4; // 4 for the object numbers, and 4 for the length of the last object. 
+				sizeCounter = sizeCounter + 4 + lastObjectBeforeFull.length; 
+				objectCounter = 1;
 				
 				// add the last object to the new page. 
 				objectsInBytesTemp.add(bytesOfIt);

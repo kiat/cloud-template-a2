@@ -66,14 +66,17 @@ public class MainServer {
 				List<DataItem> dataItems = Utils.readFromAPage(page) ;
 				
 				//TODO process the data here !
-				for (DataItem dataItem : dataItems) {
-					// We just print it to the stdout
-					// You need to receive the data here and process it. 
-						System.out.println(dataItem);
-				}
+//				for (DataItem dataItem : dataItems) {
+//					// We just print it to the stdout
+//					// You need to receive the data here and process it. 
+//						System.out.println(dataItem);
+//				}
 				
+				
+				System.out.println("Number of Objects received:" + dataItems.size());
 				
 				}else {
+					System.out.println("Terminate beecause Flag is: " + hasData);
 					break; // break out of while true if we get no more data. 					
 				}
 				
