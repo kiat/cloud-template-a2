@@ -14,7 +14,7 @@ public class TestPages {
 	@Before
 	public void setUp() throws Exception {
 
-		myData = Utils.generateExampleData(1000000);
+		myData = Utils.generateExampleData(4000000);
 
 	}
 
@@ -22,7 +22,9 @@ public class TestPages {
 	public void test() {
 
 		List<byte[]> pages = Utils.packageToPages(myData);
-
+		
+		System.out.println(pages.size());
+		
 		for (byte[] bs : pages) {
 			System.out.println("Reading a page with size " + bs.length);
 			List<DataItem> data = Utils.readFromAPage(bs);

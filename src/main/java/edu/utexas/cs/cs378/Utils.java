@@ -70,6 +70,7 @@ public class Utils {
 		// counter for objects in each page.
 		int objectCounter = 0;
 		
+		
 		for (int i = 0; i < dataItems.size(); i++) {
 			
 			// get the objects bytes and de-serialize them 
@@ -101,6 +102,8 @@ public class Utils {
 				
 				// a page is ready
 				pageList.add(byteBuffer.array());
+				
+				System.out.println("Page number " + pageList.size() );
 
 				// reset for a new page and adding the last object before full. 
 				byteBuffer = ByteBuffer.allocate(Const.PAGESIZE);
@@ -108,15 +111,13 @@ public class Utils {
 				
 				// get a fresh list 
 				objectsInBytesTemp = new ArrayList<byte[]>();
-				
+				// add the last object to the new page. 
 				objectsInBytesTemp.add(lastObjectBeforeFull);
 				
 				sizeCounter = 4; // 4 for the object numbers, and 4 for the length of the last object. 
 				sizeCounter = sizeCounter + 4 + lastObjectBeforeFull.length; 
 				objectCounter = 1;
 				
-				// add the last object to the new page. 
-				objectsInBytesTemp.add(bytesOfIt);
 
 			}// end of IF statement. 
 
@@ -132,7 +133,8 @@ public class Utils {
 			byteBuffer.put(objectsInBytesTemp.get(j));
 		}
 		pageList.add(byteBuffer.array());
-		
+		System.out.println("Page number " + pageList.size() );
+
 		System.out.println("Number of data pages to send to server is: " + pageList.size());
 
 		return pageList;
