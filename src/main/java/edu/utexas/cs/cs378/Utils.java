@@ -103,8 +103,6 @@ public class Utils {
 				// a page is ready
 				pageList.add(byteBuffer.array());
 				
-				System.out.println("Page number " + pageList.size() );
-
 				// reset for a new page and adding the last object before full. 
 				byteBuffer = ByteBuffer.allocate(Const.PAGESIZE);
 				byte[] lastObjectBeforeFull = objectsInBytesTemp.get(objectsInBytesTemp.size() -1 );

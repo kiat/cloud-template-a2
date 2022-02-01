@@ -2,6 +2,7 @@ package edu.utexas.cs.cs378;
 
 import java.io.BufferedReader;
 import java.io.DataInputStream;
+import java.io.DataOutputStream;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.net.ServerSocket;
@@ -41,7 +42,7 @@ public class MainServer {
 			DataInputStream dis = new DataInputStream(clientSocket.getInputStream());
 
 			// Use the output stream if you need it.
-//			DataOutputStream dos = new DataOutputStream(clientSocket.getOutputStream());
+			DataOutputStream dos = new DataOutputStream(clientSocket.getOutputStream());
 			System.out.println("Server is hearing on port " + portNumber);
 			int hasData; 
 			
@@ -74,6 +75,12 @@ public class MainServer {
 				
 				
 				System.out.println("Number of Objects received:" + dataItems.size());
+				
+				
+				// This tells the client to send more data. 
+				// Give me more data if you have
+				dos.writeInt(1);
+				dos.flush();
 				
 				}else {
 					System.out.println("Terminate beecause Flag is: " + hasData);
