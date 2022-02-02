@@ -29,7 +29,7 @@ public class Utils {
 		// 3. de-serialze an object
 		// 4. add the object to the list and return. 
 
-		for (int i = 0; i < numberOfObjects-1; i++) {
+		for (int i = 0; i < numberOfObjects; i++) {
 
 			int objectSize = byteBuffer.getInt(); // 4 bytes
 			byte[] objectBytes = new byte[objectSize]; // get the object bytes

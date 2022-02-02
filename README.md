@@ -57,15 +57,13 @@ mvn clean  compile  exec:java@server -Dexec.args="33333"
 # How to run the Client
 
 ```bash
-mvn clean  compile  exec:java@client  -Dexec.args="4000 localhost 33333"
+mvn clean  compile  exec:java@client  -Dexec.args="2000000 localhost 33333"
 ```
 
+Change the localhost with the local ip address of your cloud machine. 
 
-Input file is: 
 
-WikipediaPagesOneDocPerLine.txt.bz2 
-
-Data line batch size is: 500
+Data batch size is: 2000000
 
 You can modify the batch size based on available memory.
 
@@ -73,7 +71,7 @@ You can modify the batch size based on available memory.
 If you run this over SSH and it takes a lots of time you can run it in background using the following command
 
 ```bash
-nohub mvn clean compile  exec:java -Dexec.executable="edu.utexas.cs.cs378.Main"  -Dexec.args="WikipediaPagesOneDocPerLine.txt.bz2 500"  & 
+nohub mvn clean  compile  exec:java@client  -Dexec.args="2000000 localhost 33333"  & 
 ```
 
 We recommend the above command for running the Main Java executable. 
